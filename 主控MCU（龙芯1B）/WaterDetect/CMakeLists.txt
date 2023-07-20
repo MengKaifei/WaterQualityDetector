@@ -1,0 +1,607 @@
+cmake_minimum_required(VERSION 3.24)
+project(WaterDetect)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(.)
+include_directories(build)
+include_directories(include)
+include_directories(ls1x-drv)
+include_directories(ls1x-drv/ac97)
+include_directories(ls1x-drv/can)
+include_directories(ls1x-drv/console)
+include_directories(ls1x-drv/fb)
+include_directories(ls1x-drv/fb/font)
+include_directories(ls1x-drv/gmac)
+include_directories(ls1x-drv/gpio)
+include_directories(ls1x-drv/i2c)
+include_directories(ls1x-drv/i2c/rx8010)
+include_directories(ls1x-drv/include)
+include_directories(ls1x-drv/include/i2c)
+include_directories(ls1x-drv/include/spi)
+include_directories(ls1x-drv/nand)
+include_directories(ls1x-drv/pwm)
+include_directories(ls1x-drv/rtc)
+include_directories(ls1x-drv/spi)
+include_directories(ls1x-drv/spi/w25x40)
+include_directories(ls1x-drv/uart)
+include_directories(ls1x-drv/useful)
+include_directories(ls1x-drv/watchdog)
+include_directories(lvgl-7.0.1)
+include_directories(lvgl-7.0.1/porting)
+include_directories(modbus)
+include_directories(modbus/app)
+include_directories(modbus/port)
+include_directories(modbus/src)
+include_directories(RTThread)
+include_directories(RTThread/bsp-ls1x)
+include_directories(RTThread/bsp-ls1x/i2c)
+include_directories(RTThread/bsp-ls1x/spi)
+include_directories(RTThread/components)
+include_directories(RTThread/components/dfs)
+include_directories(RTThread/components/dfs/include)
+include_directories(RTThread/components/dfs/src)
+include_directories(RTThread/components/drivers)
+include_directories(RTThread/components/drivers/include)
+include_directories(RTThread/components/drivers/include/ipc)
+include_directories(RTThread/components/drivers/src)
+include_directories(RTThread/components/finsh)
+include_directories(RTThread/components/libc)
+include_directories(RTThread/components/libc/compilers)
+include_directories(RTThread/components/libc/compilers/newlib)
+include_directories(RTThread/components/libc/compilers/newlib/sys)
+include_directories(RTThread/components/libc/time)
+include_directories(RTThread/include)
+include_directories(RTThread/include/libc)
+include_directories(RTThread/port)
+include_directories(RTThread/port/include)
+include_directories(RTThread/port/mips)
+include_directories(RTThread/src)
+include_directories(src)
+
+add_executable(WaterDetect
+        build/ls1x-drv/ac97/ls1x_ac97.d
+        build/ls1x-drv/ac97/ls1x_ac97.o
+        build/ls1x-drv/ac97/subdir.mk
+        build/ls1x-drv/can/ls1x_can.d
+        build/ls1x-drv/can/ls1x_can.o
+        build/ls1x-drv/can/subdir.mk
+        build/ls1x-drv/console/console.d
+        build/ls1x-drv/console/console.o
+        build/ls1x-drv/console/subdir.mk
+        build/ls1x-drv/fb/font/font_desc.d
+        build/ls1x-drv/fb/font/font_desc.o
+        build/ls1x-drv/fb/font/subdir.mk
+        build/ls1x-drv/fb/ls1x_fb.d
+        build/ls1x-drv/fb/ls1x_fb.o
+        build/ls1x-drv/fb/ls1x_fb_utils.d
+        build/ls1x-drv/fb/ls1x_fb_utils.o
+        build/ls1x-drv/fb/subdir.mk
+        build/ls1x-drv/gmac/ls1x_gmac.d
+        build/ls1x-drv/gmac/ls1x_gmac.o
+        build/ls1x-drv/gmac/subdir.mk
+        build/ls1x-drv/gpio/ls1x_gpio.d
+        build/ls1x-drv/gpio/ls1x_gpio.o
+        build/ls1x-drv/gpio/subdir.mk
+        build/ls1x-drv/i2c/ads1015/ads1015.d
+        build/ls1x-drv/i2c/ads1015/ads1015.o
+        build/ls1x-drv/i2c/ads1015/subdir.mk
+        build/ls1x-drv/i2c/gp7101/gp7101.d
+        build/ls1x-drv/i2c/gp7101/gp7101.o
+        build/ls1x-drv/i2c/gp7101/subdir.mk
+        build/ls1x-drv/i2c/gt1151/gt1151.d
+        build/ls1x-drv/i2c/gt1151/gt1151.o
+        build/ls1x-drv/i2c/gt1151/subdir.mk
+        build/ls1x-drv/i2c/gt1151/touch.d
+        build/ls1x-drv/i2c/gt1151/touch.o
+        build/ls1x-drv/i2c/mcp4725/mcp4725.d
+        build/ls1x-drv/i2c/mcp4725/mcp4725.o
+        build/ls1x-drv/i2c/mcp4725/subdir.mk
+        build/ls1x-drv/i2c/pca9557/pca9557.d
+        build/ls1x-drv/i2c/pca9557/pca9557.o
+        build/ls1x-drv/i2c/pca9557/subdir.mk
+        build/ls1x-drv/i2c/rx8010/rx8010.d
+        build/ls1x-drv/i2c/rx8010/rx8010.o
+        build/ls1x-drv/i2c/rx8010/subdir.mk
+        build/ls1x-drv/i2c/ls1x_i2c_bus.d
+        build/ls1x-drv/i2c/ls1x_i2c_bus.o
+        build/ls1x-drv/i2c/subdir.mk
+        build/ls1x-drv/nand/ls1x_nand.d
+        build/ls1x-drv/nand/ls1x_nand.o
+        build/ls1x-drv/nand/subdir.mk
+        build/ls1x-drv/pwm/ls1x_pwm.d
+        build/ls1x-drv/pwm/ls1x_pwm.o
+        build/ls1x-drv/pwm/subdir.mk
+        build/ls1x-drv/rtc/ls1x_rtc.d
+        build/ls1x-drv/rtc/ls1x_rtc.o
+        build/ls1x-drv/rtc/subdir.mk
+        build/ls1x-drv/spi/w25x40/subdir.mk
+        build/ls1x-drv/spi/w25x40/w25x40.d
+        build/ls1x-drv/spi/w25x40/w25x40.o
+        build/ls1x-drv/spi/xpt2046/subdir.mk
+        build/ls1x-drv/spi/xpt2046/touch_utils.d
+        build/ls1x-drv/spi/xpt2046/touch_utils.o
+        build/ls1x-drv/spi/xpt2046/xpt2046.d
+        build/ls1x-drv/spi/xpt2046/xpt2046.o
+        build/ls1x-drv/spi/ls1x_spi_bus.d
+        build/ls1x-drv/spi/ls1x_spi_bus.o
+        build/ls1x-drv/spi/subdir.mk
+        build/ls1x-drv/uart/ns16550.d
+        build/ls1x-drv/uart/ns16550.o
+        build/ls1x-drv/uart/subdir.mk
+        build/ls1x-drv/useful/aligned_malloc.d
+        build/ls1x-drv/useful/aligned_malloc.o
+        build/ls1x-drv/useful/fls.d
+        build/ls1x-drv/useful/fls.o
+        build/ls1x-drv/useful/print_hex.d
+        build/ls1x-drv/useful/print_hex.o
+        build/ls1x-drv/useful/qsort.d
+        build/ls1x-drv/useful/qsort.o
+        build/ls1x-drv/useful/subdir.mk
+        build/ls1x-drv/watchdog/ls1x_watchdog.d
+        build/ls1x-drv/watchdog/ls1x_watchdog.o
+        build/ls1x-drv/watchdog/subdir.mk
+        build/ls1x-drv/ls1x_drv_init.d
+        build/ls1x-drv/ls1x_drv_init.o
+        build/ls1x-drv/subdir.mk
+        build/lvgl-7.0.1/porting/lv_port_disp.d
+        build/lvgl-7.0.1/porting/lv_port_disp.o
+        build/lvgl-7.0.1/porting/lv_port_fs.d
+        build/lvgl-7.0.1/porting/lv_port_fs.o
+        build/lvgl-7.0.1/porting/lv_port_indev.d
+        build/lvgl-7.0.1/porting/lv_port_indev.o
+        build/lvgl-7.0.1/porting/subdir.mk
+        build/modbus/app/mb_data.d
+        build/modbus/app/mb_data.o
+        build/modbus/app/subdir.mk
+        build/modbus/port/mb_bsp.d
+        build/modbus/port/mb_bsp.o
+        build/modbus/port/mb_os.d
+        build/modbus/port/mb_os.o
+        build/modbus/port/subdir.mk
+        build/modbus/src/mb.d
+        build/modbus/src/mb.o
+        build/modbus/src/mb_master.d
+        build/modbus/src/mb_master.o
+        build/modbus/src/mb_slave.d
+        build/modbus/src/mb_slave.o
+        build/modbus/src/mb_util.d
+        build/modbus/src/mb_util.o
+        build/modbus/src/subdir.mk
+        build/RTThread/bsp-ls1x/i2c/drv_ads1015.d
+        build/RTThread/bsp-ls1x/i2c/drv_ads1015.o
+        build/RTThread/bsp-ls1x/i2c/drv_mcp4725.d
+        build/RTThread/bsp-ls1x/i2c/drv_mcp4725.o
+        build/RTThread/bsp-ls1x/i2c/drv_pca9557.d
+        build/RTThread/bsp-ls1x/i2c/drv_pca9557.o
+        build/RTThread/bsp-ls1x/i2c/drv_rx8010.d
+        build/RTThread/bsp-ls1x/i2c/drv_rx8010.o
+        build/RTThread/bsp-ls1x/i2c/subdir.mk
+        build/RTThread/bsp-ls1x/spi/drv_w25x40.d
+        build/RTThread/bsp-ls1x/spi/drv_w25x40.o
+        build/RTThread/bsp-ls1x/spi/drv_xpt2046.d
+        build/RTThread/bsp-ls1x/spi/drv_xpt2046.o
+        build/RTThread/bsp-ls1x/spi/subdir.mk
+        build/RTThread/bsp-ls1x/drv_can.d
+        build/RTThread/bsp-ls1x/drv_can.o
+        build/RTThread/bsp-ls1x/drv_fb.d
+        build/RTThread/bsp-ls1x/drv_fb.o
+        build/RTThread/bsp-ls1x/drv_nand.d
+        build/RTThread/bsp-ls1x/drv_nand.o
+        build/RTThread/bsp-ls1x/drv_pwm.d
+        build/RTThread/bsp-ls1x/drv_pwm.o
+        build/RTThread/bsp-ls1x/drv_uart.d
+        build/RTThread/bsp-ls1x/drv_uart.o
+        build/RTThread/bsp-ls1x/rt_ls1x_drv_init.d
+        build/RTThread/bsp-ls1x/rt_ls1x_drv_init.o
+        build/RTThread/bsp-ls1x/subdir.mk
+        build/RTThread/components/dfs/src/dfs.d
+        build/RTThread/components/dfs/src/dfs.o
+        build/RTThread/components/dfs/src/dfs_file.d
+        build/RTThread/components/dfs/src/dfs_file.o
+        build/RTThread/components/dfs/src/dfs_fs.d
+        build/RTThread/components/dfs/src/dfs_fs.o
+        build/RTThread/components/dfs/src/dfs_posix.d
+        build/RTThread/components/dfs/src/dfs_posix.o
+        build/RTThread/components/dfs/src/poll.d
+        build/RTThread/components/dfs/src/poll.o
+        build/RTThread/components/dfs/src/select.d
+        build/RTThread/components/dfs/src/select.o
+        build/RTThread/components/dfs/src/subdir.mk
+        build/RTThread/components/drivers/src/completion.d
+        build/RTThread/components/drivers/src/completion.o
+        build/RTThread/components/drivers/src/dataqueue.d
+        build/RTThread/components/drivers/src/dataqueue.o
+        build/RTThread/components/drivers/src/pipe.d
+        build/RTThread/components/drivers/src/pipe.o
+        build/RTThread/components/drivers/src/ringblk_buf.d
+        build/RTThread/components/drivers/src/ringblk_buf.o
+        build/RTThread/components/drivers/src/ringbuffer.d
+        build/RTThread/components/drivers/src/ringbuffer.o
+        build/RTThread/components/drivers/src/subdir.mk
+        build/RTThread/components/drivers/src/waitqueue.d
+        build/RTThread/components/drivers/src/waitqueue.o
+        build/RTThread/components/drivers/src/workqueue.d
+        build/RTThread/components/drivers/src/workqueue.o
+        build/RTThread/components/finsh/cmd.d
+        build/RTThread/components/finsh/cmd.o
+        build/RTThread/components/finsh/finsh_compiler.d
+        build/RTThread/components/finsh/finsh_compiler.o
+        build/RTThread/components/finsh/finsh_error.d
+        build/RTThread/components/finsh/finsh_error.o
+        build/RTThread/components/finsh/finsh_heap.d
+        build/RTThread/components/finsh/finsh_heap.o
+        build/RTThread/components/finsh/finsh_init.d
+        build/RTThread/components/finsh/finsh_init.o
+        build/RTThread/components/finsh/finsh_node.d
+        build/RTThread/components/finsh/finsh_node.o
+        build/RTThread/components/finsh/finsh_ops.d
+        build/RTThread/components/finsh/finsh_ops.o
+        build/RTThread/components/finsh/finsh_parser.d
+        build/RTThread/components/finsh/finsh_parser.o
+        build/RTThread/components/finsh/finsh_token.d
+        build/RTThread/components/finsh/finsh_token.o
+        build/RTThread/components/finsh/finsh_var.d
+        build/RTThread/components/finsh/finsh_var.o
+        build/RTThread/components/finsh/finsh_vm.d
+        build/RTThread/components/finsh/finsh_vm.o
+        build/RTThread/components/finsh/msh.d
+        build/RTThread/components/finsh/msh.o
+        build/RTThread/components/finsh/msh_file.d
+        build/RTThread/components/finsh/msh_file.o
+        build/RTThread/components/finsh/shell.d
+        build/RTThread/components/finsh/shell.o
+        build/RTThread/components/finsh/subdir.mk
+        build/RTThread/components/finsh/symbol.d
+        build/RTThread/components/finsh/symbol.o
+        build/RTThread/components/libc/compilers/newlib/libc.d
+        build/RTThread/components/libc/compilers/newlib/libc.o
+        build/RTThread/components/libc/compilers/newlib/libc_syms.d
+        build/RTThread/components/libc/compilers/newlib/libc_syms.o
+        build/RTThread/components/libc/compilers/newlib/stdio.d
+        build/RTThread/components/libc/compilers/newlib/stdio.o
+        build/RTThread/components/libc/compilers/newlib/subdir.mk
+        build/RTThread/components/libc/compilers/newlib/syscalls.d
+        build/RTThread/components/libc/compilers/newlib/syscalls.o
+        build/RTThread/components/libc/compilers/newlib/time.d
+        build/RTThread/components/libc/compilers/newlib/time.o
+        build/RTThread/components/libc/time/clock_time.d
+        build/RTThread/components/libc/time/clock_time.o
+        build/RTThread/components/libc/time/subdir.mk
+        build/RTThread/port/bsp_start.d
+        build/RTThread/port/bsp_start.o
+        build/RTThread/port/cache.d
+        build/RTThread/port/cache.o
+        build/RTThread/port/context.d
+        build/RTThread/port/context.o
+        build/RTThread/port/exception.d
+        build/RTThread/port/exception.o
+        build/RTThread/port/inittlb.d
+        build/RTThread/port/inittlb.o
+        build/RTThread/port/irq.d
+        build/RTThread/port/irq.o
+        build/RTThread/port/irq_s.d
+        build/RTThread/port/irq_s.o
+        build/RTThread/port/mips_timer.d
+        build/RTThread/port/mips_timer.o
+        build/RTThread/port/stack.d
+        build/RTThread/port/stack.o
+        build/RTThread/port/start.d
+        build/RTThread/port/start.o
+        build/RTThread/port/subdir.mk
+        build/RTThread/port/tick.d
+        build/RTThread/port/tick.o
+        build/RTThread/port/tlb.d
+        build/RTThread/port/tlb.o
+        build/RTThread/src/clock.d
+        build/RTThread/src/clock.o
+        build/RTThread/src/components.d
+        build/RTThread/src/components.o
+        build/RTThread/src/cpu.d
+        build/RTThread/src/cpu.o
+        build/RTThread/src/device.d
+        build/RTThread/src/device.o
+        build/RTThread/src/idle.d
+        build/RTThread/src/idle.o
+        build/RTThread/src/ipc.d
+        build/RTThread/src/ipc.o
+        build/RTThread/src/irq.d
+        build/RTThread/src/irq.o
+        build/RTThread/src/kservice.d
+        build/RTThread/src/kservice.o
+        build/RTThread/src/mem.d
+        build/RTThread/src/mem.o
+        build/RTThread/src/memheap.d
+        build/RTThread/src/memheap.o
+        build/RTThread/src/mempool.d
+        build/RTThread/src/mempool.o
+        build/RTThread/src/object.d
+        build/RTThread/src/object.o
+        build/RTThread/src/scheduler.d
+        build/RTThread/src/scheduler.o
+        build/RTThread/src/signal.d
+        build/RTThread/src/signal.o
+        build/RTThread/src/slab.d
+        build/RTThread/src/slab.o
+        build/RTThread/src/subdir.mk
+        build/RTThread/src/thread.d
+        build/RTThread/src/thread.o
+        build/RTThread/src/timer.d
+        build/RTThread/src/timer.o
+        build/src/install_3th_libraries.d
+        build/src/install_3th_libraries.o
+        build/src/subdir.mk
+        build/dcmotor.d
+        build/dcmotor.o
+        build/key.d
+        build/key.o
+        build/limit.d
+        build/limit.o
+        build/main.d
+        build/main.o
+        build/makefile.mk
+        build/objects.mk
+        build/pump.d
+        build/pump.o
+        build/samotor.d
+        build/samotor.o
+        build/sources.mk
+        build/subdir.mk
+        build/task.d
+        build/task.o
+        build/uart.d
+        build/uart.o
+        build/WaterDetect.bin
+        build/WaterDetect.exe
+        include/app_os_priority.h
+        include/bsp.h
+        include/queue_list.h
+        include/rtconfig.h
+        ls1x-drv/ac97/codec_alc655.h
+        ls1x-drv/ac97/ls1x_ac97.c
+        ls1x-drv/ac97/ls1x_ac97_hw.h
+        ls1x-drv/can/ls1x_can.c
+        ls1x-drv/can/ls1x_can_hw.h
+        ls1x-drv/console/console.c
+        ls1x-drv/fb/font/asc-iso8859-8x16.inl
+        ls1x-drv/fb/font/asc-simple-8x16.inl
+        ls1x-drv/fb/font/font_desc.c
+        ls1x-drv/fb/font/font_desc.h
+        ls1x-drv/fb/font/song-gb2312-16x16.inl
+        ls1x-drv/fb/ls1x_fb.c
+        ls1x-drv/fb/ls1x_fb_hw.h
+        ls1x-drv/fb/ls1x_fb_utils.c
+        ls1x-drv/gmac/ls1x_gmac.c
+        ls1x-drv/gmac/ls1x_gmac_hw.h
+        ls1x-drv/gpio/ls1x_gpio.c
+        ls1x-drv/i2c/ads1015/ads1015.c
+        ls1x-drv/i2c/gp7101/gp7101.c
+        ls1x-drv/i2c/gt1151/gt1151.c
+        ls1x-drv/i2c/gt1151/touch.c
+        ls1x-drv/i2c/mcp4725/mcp4725.c
+        ls1x-drv/i2c/pca9557/pca9557.c
+        ls1x-drv/i2c/rx8010/rx8010.c
+        ls1x-drv/i2c/rx8010/rx8010_hw.h
+        ls1x-drv/i2c/ls1x_i2c_bus.c
+        ls1x-drv/i2c/ls1x_i2c_bus_hw.h
+        ls1x-drv/include/i2c/ads1015.h
+        ls1x-drv/include/i2c/gp7101.h
+        ls1x-drv/include/i2c/gt1151.h
+        ls1x-drv/include/i2c/mcp4725.h
+        ls1x-drv/include/i2c/pca9557.h
+        ls1x-drv/include/i2c/rx8010.h
+        ls1x-drv/include/spi/w25x40.h
+        ls1x-drv/include/spi/xpt2046.h
+        ls1x-drv/include/console.h
+        ls1x-drv/include/drv_os_priority.h
+        ls1x-drv/include/fb.h
+        ls1x-drv/include/ls1x_ac97.h
+        ls1x-drv/include/ls1x_can.h
+        ls1x-drv/include/ls1x_dma_hw.h
+        ls1x-drv/include/ls1x_fb.h
+        ls1x-drv/include/ls1x_gmac.h
+        ls1x-drv/include/ls1x_i2c_bus.h
+        ls1x-drv/include/ls1x_io.h
+        ls1x-drv/include/ls1x_nand.h
+        ls1x-drv/include/ls1x_pwm.h
+        ls1x-drv/include/ls1x_rtc.h
+        ls1x-drv/include/ls1x_spi_bus.h
+        ls1x-drv/include/ls1x_watchdog.h
+        ls1x-drv/include/mii.h
+        ls1x-drv/include/ns16550.h
+        ls1x-drv/include/termios.h
+        ls1x-drv/include/touch.h
+        ls1x-drv/nand/ls1x_nand.c
+        ls1x-drv/nand/ls1x_nand_hw.h
+        ls1x-drv/nand/nand_k9f1g08.h
+        ls1x-drv/pwm/ls1x_pwm.c
+        ls1x-drv/pwm/ls1x_pwm_hw.h
+        ls1x-drv/rtc/ls1x_rtc.c
+        ls1x-drv/rtc/ls1x_rtc_hw.h
+        ls1x-drv/spi/w25x40/w25x40.c
+        ls1x-drv/spi/w25x40/w25x40_hw.h
+        ls1x-drv/spi/xpt2046/touch_utils.c
+        ls1x-drv/spi/xpt2046/xpt2046.c
+        ls1x-drv/spi/ls1x_spi_bus.c
+        ls1x-drv/spi/ls1x_spi_bus_hw.h
+        ls1x-drv/uart/ns16550.c
+        ls1x-drv/uart/ns16550_p.h
+        ls1x-drv/useful/aligned_malloc.c
+        ls1x-drv/useful/fls.c
+        ls1x-drv/useful/print_hex.c
+        ls1x-drv/useful/qsort.c
+        ls1x-drv/watchdog/ls1x_watchdog.c
+        ls1x-drv/ls1x_drv_init.c
+        lvgl-7.0.1/porting/lv_port_disp.c
+        lvgl-7.0.1/porting/lv_port_disp.h
+        lvgl-7.0.1/porting/lv_port_fs.c
+        lvgl-7.0.1/porting/lv_port_fs.h
+        lvgl-7.0.1/porting/lv_port_indev.c
+        lvgl-7.0.1/porting/lv_port_indev.h
+        modbus/app/mb_cfg.h
+        modbus/app/mb_data.c
+        modbus/port/mb_bsp.c
+        modbus/port/mb_bsp.h
+        modbus/port/mb_os.c
+        modbus/port/mb_os.h
+        modbus/src/mb.c
+        modbus/src/mb.h
+        modbus/src/mb_def.h
+        modbus/src/mb_master.c
+        modbus/src/mb_slave.c
+        modbus/src/mb_util.c
+        RTThread/bsp-ls1x/i2c/drv_ads1015.c
+        RTThread/bsp-ls1x/i2c/drv_ads1015.h
+        RTThread/bsp-ls1x/i2c/drv_mcp4725.c
+        RTThread/bsp-ls1x/i2c/drv_mcp4725.h
+        RTThread/bsp-ls1x/i2c/drv_pca9557.c
+        RTThread/bsp-ls1x/i2c/drv_pca9557.h
+        RTThread/bsp-ls1x/i2c/drv_rx8010.c
+        RTThread/bsp-ls1x/i2c/drv_rx8010.h
+        RTThread/bsp-ls1x/spi/drv_w25x40.c
+        RTThread/bsp-ls1x/spi/drv_w25x40.h
+        RTThread/bsp-ls1x/spi/drv_xpt2046.c
+        RTThread/bsp-ls1x/spi/drv_xpt2046.h
+        RTThread/bsp-ls1x/drv_can.c
+        RTThread/bsp-ls1x/drv_can.h
+        RTThread/bsp-ls1x/drv_fb.c
+        RTThread/bsp-ls1x/drv_fb.h
+        RTThread/bsp-ls1x/drv_nand.c
+        RTThread/bsp-ls1x/drv_nand.h
+        RTThread/bsp-ls1x/drv_pwm.c
+        RTThread/bsp-ls1x/drv_pwm.h
+        RTThread/bsp-ls1x/drv_uart.c
+        RTThread/bsp-ls1x/drv_uart.h
+        RTThread/bsp-ls1x/rt_ls1x_drv_init.c
+        RTThread/components/dfs/include/dfs.h
+        RTThread/components/dfs/include/dfs_file.h
+        RTThread/components/dfs/include/dfs_fs.h
+        RTThread/components/dfs/include/dfs_poll.h
+        RTThread/components/dfs/include/dfs_posix.h
+        RTThread/components/dfs/include/dfs_private.h
+        RTThread/components/dfs/include/dfs_select.h
+        RTThread/components/dfs/src/dfs.c
+        RTThread/components/dfs/src/dfs_file.c
+        RTThread/components/dfs/src/dfs_fs.c
+        RTThread/components/dfs/src/dfs_posix.c
+        RTThread/components/dfs/src/poll.c
+        RTThread/components/dfs/src/select.c
+        RTThread/components/drivers/include/ipc/completion.h
+        RTThread/components/drivers/include/ipc/dataqueue.h
+        RTThread/components/drivers/include/ipc/pipe.h
+        RTThread/components/drivers/include/ipc/poll.h
+        RTThread/components/drivers/include/ipc/ringblk_buf.h
+        RTThread/components/drivers/include/ipc/ringbuffer.h
+        RTThread/components/drivers/include/ipc/waitqueue.h
+        RTThread/components/drivers/include/ipc/workqueue.h
+        RTThread/components/drivers/include/rtdevice.h
+        RTThread/components/drivers/src/completion.c
+        RTThread/components/drivers/src/dataqueue.c
+        RTThread/components/drivers/src/pipe.c
+        RTThread/components/drivers/src/ringblk_buf.c
+        RTThread/components/drivers/src/ringbuffer.c
+        RTThread/components/drivers/src/waitqueue.c
+        RTThread/components/drivers/src/workqueue.c
+        RTThread/components/finsh/cmd.c
+        RTThread/components/finsh/finsh.h
+        RTThread/components/finsh/finsh_api.h
+        RTThread/components/finsh/finsh_compiler.c
+        RTThread/components/finsh/finsh_error.c
+        RTThread/components/finsh/finsh_error.h
+        RTThread/components/finsh/finsh_heap.c
+        RTThread/components/finsh/finsh_heap.h
+        RTThread/components/finsh/finsh_init.c
+        RTThread/components/finsh/finsh_node.c
+        RTThread/components/finsh/finsh_node.h
+        RTThread/components/finsh/finsh_ops.c
+        RTThread/components/finsh/finsh_ops.h
+        RTThread/components/finsh/finsh_parser.c
+        RTThread/components/finsh/finsh_parser.h
+        RTThread/components/finsh/finsh_token.c
+        RTThread/components/finsh/finsh_token.h
+        RTThread/components/finsh/finsh_var.c
+        RTThread/components/finsh/finsh_var.h
+        RTThread/components/finsh/finsh_vm.c
+        RTThread/components/finsh/finsh_vm.h
+        RTThread/components/finsh/msh.c
+        RTThread/components/finsh/msh.h
+        RTThread/components/finsh/msh_file.c
+        RTThread/components/finsh/shell.c
+        RTThread/components/finsh/shell.h
+        RTThread/components/finsh/symbol.c
+        RTThread/components/libc/compilers/newlib/sys/dirent.h
+        RTThread/components/libc/compilers/newlib/sys/mman.h
+        RTThread/components/libc/compilers/newlib/sys/statfs.h
+        RTThread/components/libc/compilers/newlib/sys/termios.h
+        RTThread/components/libc/compilers/newlib/libc.c
+        RTThread/components/libc/compilers/newlib/libc.h
+        RTThread/components/libc/compilers/newlib/libc_syms.c
+        RTThread/components/libc/compilers/newlib/stdio.c
+        RTThread/components/libc/compilers/newlib/syscalls.c
+        RTThread/components/libc/compilers/newlib/termios.h
+        RTThread/components/libc/compilers/newlib/time.c
+        RTThread/components/libc/time/clock_time.c
+        RTThread/components/libc/time/clock_time.h
+        RTThread/include/libc/libc_dirent.h
+        RTThread/include/libc/libc_errno.h
+        RTThread/include/libc/libc_fcntl.h
+        RTThread/include/libc/libc_fdset.h
+        RTThread/include/libc/libc_ioctl.h
+        RTThread/include/libc/libc_signal.h
+        RTThread/include/libc/libc_stat.h
+        RTThread/include/rtdbg.h
+        RTThread/include/rtdebug.h
+        RTThread/include/rtdef.h
+        RTThread/include/rthw.h
+        RTThread/include/rtlibc.h
+        RTThread/include/rtm.h
+        RTThread/include/rtservice.h
+        RTThread/include/rtthread.h
+        RTThread/port/include/ls1b.h
+        RTThread/port/include/ls1b_gpio.h
+        RTThread/port/include/ls1b_irq.h
+        RTThread/port/include/tick.h
+        RTThread/port/mips/asm.h
+        RTThread/port/mips/cpu.h
+        RTThread/port/mips/mips.h
+        RTThread/port/mips/regdef.h
+        RTThread/port/bsp_start.c
+        RTThread/port/context.h
+        RTThread/port/exception.c
+        RTThread/port/inittlb.c
+        RTThread/port/irq.c
+        RTThread/port/stack.c
+        RTThread/port/tick.c
+        RTThread/src/clock.c
+        RTThread/src/components.c
+        RTThread/src/cpu.c
+        RTThread/src/device.c
+        RTThread/src/idle.c
+        RTThread/src/ipc.c
+        RTThread/src/irq.c
+        RTThread/src/kservice.c
+        RTThread/src/mem.c
+        RTThread/src/memheap.c
+        RTThread/src/mempool.c
+        RTThread/src/object.c
+        RTThread/src/scheduler.c
+        RTThread/src/signal.c
+        RTThread/src/slab.c
+        RTThread/src/thread.c
+        RTThread/src/timer.c
+        src/install_3th_libraries.c
+        dcmotor.c
+        dcmotor.h
+        key.c
+        key.h
+        limit.c
+        limit.h
+        main.c
+        pump.c
+        pump.h
+        samotor.c
+        samotor.h
+        task.c
+        task.h
+        uart.c
+        uart.h)

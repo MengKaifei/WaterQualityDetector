@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "ls1b_gpio.h": "c",
+        "mips.h": "c",
+        "time.h": "c",
+        "rtthread.h": "c",
+        "stdio.h": "c",
+        "tick.h": "c",
+        "ls1b.h": "c",
+        "uart.h": "c",
+        "task.h": "c"
+    }
+}
